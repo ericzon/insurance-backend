@@ -1,0 +1,12 @@
+# Editor
+.idea
+
+# Installation
+node_modules
+
+# Output folder
+dist
+coverage
+
+# Config
+.env
