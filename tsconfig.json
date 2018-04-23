@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": false,
+        "noLib": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es6",
+        "sourceMap": true,
+        "outDir": "dist",
+        "lib": ["es2017", "dom"]
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.spec.ts"
+    ],
+    "moduleResolution": "classic",
+    "baseUrl": ".",
+    "paths": {
+        "approot/*": [
+            "src/*"
+        ]
+    }
+}
