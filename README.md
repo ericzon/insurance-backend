@@ -12,9 +12,11 @@ $ npm i
 
 ## Environment
 
-Before running the app, is necessary to set env vars:
+Before running the app, is necessary to set .env file:
 
-These are development vars
+Create .env empty file on the root path of the project, and paste this:
+
+(These are development vars)
 ```
 NODE_ENV='development'
 PORT=4000
