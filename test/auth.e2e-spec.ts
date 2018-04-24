@@ -12,9 +12,7 @@ describe('Auth Controller (e2e)', () => {
 
     beforeAll(async () => {
         const moduleFixture = await Test.createTestingModule({
-            imports: [
-                AuthModule
-            ]
+            imports: [AuthModule]
         }).compile();
 
         app = moduleFixture.createNestApplication();
@@ -26,8 +24,8 @@ describe('Auth Controller (e2e)', () => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .post(apiPrefix + '/auth/login')
             .send({
-                "name": "NoUser",
-                "password": "nopassword"
+                name: 'NoUser',
+                password: 'nopassword'
             })
             .expect(401);
 
@@ -38,8 +36,8 @@ describe('Auth Controller (e2e)', () => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .post(apiPrefix + '/auth/login')
             .send({
-                "name": "Britney",
-                "password": "wrongPassword"
+                name: 'Britney',
+                password: 'wrongPassword'
             })
             .expect(401);
 
@@ -50,8 +48,8 @@ describe('Auth Controller (e2e)', () => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .post(apiPrefix + '/auth/login')
             .send({
-                "otherfield": "Britney",
-                "password": "a0ece5db-cd14-4f21-812f-966633e7be86"
+                otherfield: 'Britney',
+                password: 'a0ece5db-cd14-4f21-812f-966633e7be86'
             })
             .expect(400);
 
@@ -62,8 +60,8 @@ describe('Auth Controller (e2e)', () => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .post(apiPrefix + '/auth/login')
             .send({
-                "name": "Britney",
-                "password": "a0ece5db-cd14-4f21-812f-966633e7be86"
+                name: 'Britney',
+                password: 'a0ece5db-cd14-4f21-812f-966633e7be86'
             })
             .expect(200);
 

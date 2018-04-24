@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { TestingModule } from '@nestjs/testing/testing-module';
-import { NestEnvironment } from '@nestjs/common/enums/nest-environment.enum'
+import { NestEnvironment } from '@nestjs/common/enums/nest-environment.enum';
 
 import { ClientsService } from '../../clients/services';
 import { filterMock } from '../../clients/tests/mocks/filter.mock';
@@ -29,8 +29,9 @@ describe('Policies service', () => {
                 }
             ]
         })
-        .overrideComponent(ClientsService).useValue(ClientsServiceMock)
-        .compile();
+            .overrideComponent(ClientsService)
+            .useValue(ClientsServiceMock)
+            .compile();
 
         initInjectors();
     });
@@ -44,7 +45,7 @@ describe('Policies service', () => {
         spies.clientsService.getClientIdFromName.mockRestore();
     });
 
-    it('should exist service when module is created',() => {
+    it('should exist service when module is created', () => {
         expect(injector.service).toBeDefined();
         expect(injector.clientsService).toBeDefined();
         expect(injector.remote).toBeDefined();
@@ -57,9 +58,9 @@ describe('Policies service', () => {
             return { policies: fakeList };
         });
 
-        spies.service.filter.mockImplementation((query, list) => (list[0]));
+        spies.service.filter.mockImplementation((query, list) => list[0]);
 
-        const result = await injector.service.getPolicies({ id: '1234'});
+        const result = await injector.service.getPolicies({ id: '1234' });
 
         expect(result).toEqual(fakeList[0]);
     });
@@ -70,16 +71,18 @@ describe('Policies service', () => {
             return 'fakeId';
         });
 
-        spies.service.getPolicies.mockImplementation((query) => (fakeList));
+        spies.service.getPolicies.mockImplementation((query) => fakeList);
 
-        const result = await injector.service.getPoliciesByUsername({ name: 'fakeName'});
+        const result = await injector.service.getPoliciesByUsername({
+            name: 'fakeName'
+        });
 
         expect(result).toEqual(fakeList);
     });
 
     it('should return a list of items when client id is provided', async () => {
         const fakeList = [{ id: '1234', clientId: 'fakeId' }];
-        spies.service.getPolicies.mockImplementation((query) => (fakeList));
+        spies.service.getPolicies.mockImplementation((query) => fakeList);
         spies.service.getSingle.mockImplementation((policies) => {
             return fakeList;
         });
@@ -106,15 +109,27 @@ describe('Policies service', () => {
     const initSpies = () => {
         spies = {
             service: {
-                getPoliciesByUsername: jest.spyOn(injector.service, 'getPoliciesByUsername'),
-                getUserByPolicyId: jest.spyOn(injector.service, 'getUserByPolicyId'),
+                getPoliciesByUsername: jest.spyOn(
+                    injector.service,
+                    'getPoliciesByUsername'
+                ),
+                getUserByPolicyId: jest.spyOn(
+                    injector.service,
+                    'getUserByPolicyId'
+                ),
                 getPolicies: jest.spyOn(injector.service, 'getPolicies'),
                 getSingle: jest.spyOn(injector.service, 'getSingle'),
                 filter: jest.spyOn(injector.service, 'filter')
             },
             clientsService: {
-                getClientById: jest.spyOn(injector.clientsService, 'getClientById'),
-                getClientIdFromName: jest.spyOn(injector.clientsService, 'getClientIdFromName'),
+                getClientById: jest.spyOn(
+                    injector.clientsService,
+                    'getClientById'
+                ),
+                getClientIdFromName: jest.spyOn(
+                    injector.clientsService,
+                    'getClientIdFromName'
+                )
             },
             remote: {
                 getList: jest.spyOn(injector.remote, 'getList')

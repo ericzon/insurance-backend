@@ -5,8 +5,16 @@ import { APP_NAME, PROCESS_PID, LOG_LEVEL } from '../constants';
 const customFormat = (options, tag) => {
     const level = config.colorize(options.level, options.level.toUpperCase());
 
-    return `[${APP_NAME}] Message: ${options.timestamp()} ${level} [${ PROCESS_PID }] ${tag}: ${options.message}`+
-           `${(options.meta && Object.keys(options.meta).length ? '\n\t'+ JSON.stringify(options.meta) : '' )}`;
+    return (
+        `[${APP_NAME}] Message: ${options.timestamp()} ${level} [${PROCESS_PID}] ${tag}: ${
+            options.message
+        }` +
+        `${
+            options.meta && Object.keys(options.meta).length
+                ? '\n\t' + JSON.stringify(options.meta)
+                : ''
+        }`
+    );
 };
 
 const consoleConfig = (tag) => {
@@ -22,9 +30,7 @@ const consoleConfig = (tag) => {
 
 export const loggerSettings = (tag) => {
     return {
-        transports: [
-            new transports.Console(consoleConfig(tag))
-        ],
+        transports: [new transports.Console(consoleConfig(tag))],
         level: LOG_LEVEL
     };
 };

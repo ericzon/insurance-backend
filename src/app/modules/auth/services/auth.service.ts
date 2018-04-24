@@ -17,10 +17,13 @@ export class AuthService {
         const client = await this.clientsService.getClientById(data.password);
 
         // TODO: in a real world, improve naive password validation
-        const isValidLogin = client && data.password && data.password === client.id &&
-                                client.name === data.name;
+        const isValidLogin =
+            client &&
+            data.password &&
+            data.password === client.id &&
+            client.name === data.name;
 
-        return isValidLogin && await this.createToken(client);
+        return isValidLogin && (await this.createToken(client));
     }
 
     private async createToken(client) {
@@ -28,7 +31,7 @@ export class AuthService {
     }
 
     public async validateUser(payload): Promise<any> {
-        this._logger.debug('payload: ',payload);
+        this._logger.debug('payload: ', payload);
 
         return await this.clientsService.getClientById(payload.id);
     }
