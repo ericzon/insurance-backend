@@ -1,4 +1,12 @@
-import { Body, Controller, HttpStatus, Post, Req, Res, UsePipes } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    HttpStatus,
+    Post,
+    Req,
+    Res,
+    UsePipes
+} from '@nestjs/common';
 
 import { ValidationPipe } from '../../../utils/pipes/validation.pipe';
 import { BaseController } from '../../../core/base';
@@ -17,6 +25,10 @@ export class AuthController extends BaseController {
     public async login(@Res() res, @Body() data: LoginDataDto, @Req() req) {
         const response = await this.authService.validateLogin(data);
 
-        return this.response(res, response, !response && HttpStatus.UNAUTHORIZED);
+        return this.response(
+            res,
+            response,
+            !response && HttpStatus.UNAUTHORIZED
+        );
     }
 }

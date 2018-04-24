@@ -17,6 +17,7 @@ Before running the app, is necessary to set .env file:
 Create .env empty file on the root path of the project, and paste this:
 
 (These are development vars)
+
 ```
 NODE_ENV='development'
 PORT=4000
@@ -37,14 +38,13 @@ $ npm start
 
 # watch mode
 $ npm run start:dev
-
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ npm test
 
 # e2e tests
 # First you need to start a server instance:
@@ -56,3 +56,20 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Development
+
+Run in watch mode:
+
+```bash
+# watch mode
+$ npm run start:dev
+```
+
+### Format code (prettier):
+
+```bash
+$ npm run format
+```
+
+Don't forget to run tests before push!

@@ -30,6 +30,8 @@ export class PoliciesService extends BaseService {
         const policies = await this.getPolicies({ id });
         const policy = this.getSingle(policies);
 
-        return policy ? this.clientsService.getClientById(policy.clientId) : null;
+        return policy
+            ? this.clientsService.getClientById(policy.clientId)
+            : null;
     }
 }
