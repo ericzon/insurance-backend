@@ -5,16 +5,14 @@ import { INestApplication } from '@nestjs/common';
 import { TEST_PORT } from './constants';
 import { ClientsModule } from '../src/app/modules/clients';
 
-describe('Clients Controller (e2e)', async() => {
+describe('Clients Controller (e2e)', async () => {
     const apiPrefix = '/api';
     let app: INestApplication;
     let validToken = '';
 
     beforeAll(async () => {
         const moduleFixture = await Test.createTestingModule({
-            imports: [
-                ClientsModule
-            ]
+            imports: [ClientsModule]
         }).compile();
 
         app = moduleFixture.createNestApplication();
@@ -26,8 +24,8 @@ describe('Clients Controller (e2e)', async() => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .post(apiPrefix + '/auth/login')
             .send({
-                "name": "Britney",
-                "password": "a0ece5db-cd14-4f21-812f-966633e7be86"
+                name: 'Britney',
+                password: 'a0ece5db-cd14-4f21-812f-966633e7be86'
             })
             .expect(200);
 
@@ -40,7 +38,7 @@ describe('Clients Controller (e2e)', async() => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .get(apiPrefix + '/clients/a0ece5db-cd14-4f21-812f-966633e7be86')
             .set({
-                "Authorization": "Bearer wrongToken"
+                Authorization: 'Bearer wrongToken'
             })
             .expect(401);
 
@@ -51,14 +49,14 @@ describe('Clients Controller (e2e)', async() => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .get(apiPrefix + '/clients/a0ece5db-cd14-4f21-812f-966633e7be86')
             .set({
-                "Authorization": "Bearer " + validToken
+                Authorization: 'Bearer ' + validToken
             })
             .expect(200)
             .expect({
-                "id": "a0ece5db-cd14-4f21-812f-966633e7be86",
-                "name": "Britney",
-                "email": "britneyblankenship@quotezart.com",
-                "role": "admin"
+                id: 'a0ece5db-cd14-4f21-812f-966633e7be86',
+                name: 'Britney',
+                email: 'britneyblankenship@quotezart.com',
+                role: 'admin'
             });
 
         return response;
@@ -68,15 +66,15 @@ describe('Clients Controller (e2e)', async() => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .get(apiPrefix + '/clients?name=Manning')
             .set({
-                "Authorization": "Bearer " + validToken
+                Authorization: 'Bearer ' + validToken
             })
             .expect(200)
             .expect([
                 {
-                    "id": "e8fd159b-57c4-4d36-9bd7-a59ca13057bb",
-                    "name": "Manning",
-                    "email": "manningblankenship@quotezart.com",
-                    "role": "admin"
+                    id: 'e8fd159b-57c4-4d36-9bd7-a59ca13057bb',
+                    name: 'Manning',
+                    email: 'manningblankenship@quotezart.com',
+                    role: 'admin'
                 }
             ]);
 

@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Query, Res, UseGuards, UsePipes } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Param,
+    Query,
+    Res,
+    UseGuards,
+    UsePipes
+} from '@nestjs/common';
 
 import { BaseController } from '../../../core';
 import { ValidationPipe } from '../../../utils/pipes/validation.pipe';
@@ -17,7 +25,10 @@ export class PoliciesController extends BaseController {
     @Get()
     @UseGuards(AuthGuard('jwt', POLICIES_ROLES))
     @UsePipes(new ValidationPipe(RESTRICTIVE_OPTS))
-    public async getPoliciesByUserName(@Res() res, @Query() query: PoliciesDto) {
+    public async getPoliciesByUserName(
+        @Res() res,
+        @Query() query: PoliciesDto
+    ) {
         const response = await this.service.getPoliciesByUsername(query);
 
         return this.response(res, response);

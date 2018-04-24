@@ -2,13 +2,21 @@ import * as winston from 'winston';
 import * as common from '@nestjs/common';
 
 import { loggerSettings } from './settings';
-import { DEBUG, ERROR, INFO, WARN, LOG_LEVEL, HTTP, VERBOSE } from './constants';
+import {
+    DEBUG,
+    ERROR,
+    INFO,
+    WARN,
+    LOG_LEVEL,
+    HTTP,
+    VERBOSE
+} from './constants';
 
 export class LoggerService implements common.LoggerService {
     private _logger;
 
     constructor(private tag: string) {
-        this._logger = new (winston.Logger)(loggerSettings(tag));
+        this._logger = new winston.Logger(loggerSettings(tag));
     }
 
     public log(message: string, obj?: object) {
@@ -24,7 +32,7 @@ export class LoggerService implements common.LoggerService {
     }
 
     public info(message: string, obj?: object) {
-        this.log(message,obj);
+        this.log(message, obj);
     }
 
     public error(message: string, trace?: string) {
@@ -36,7 +44,10 @@ export class LoggerService implements common.LoggerService {
     }
 
     public static isLevelEnabled(level: string) {
-        return winston.config.npm.levels[level] <= winston.config.npm.levels[LOG_LEVEL];
+        return (
+            winston.config.npm.levels[level] <=
+            winston.config.npm.levels[LOG_LEVEL]
+        );
     }
 
     public static isDebugEnabled() {
@@ -63,9 +74,14 @@ export class LoggerService implements common.LoggerService {
         return LoggerService.isLevelEnabled(ERROR);
     }
 
-    private output(level: string, message: string, obj?: object, trace?: string): void {
-        trace ?
-            this._logger.log(ERROR, trace) :
-            this._logger.log(level, message, obj);
+    private output(
+        level: string,
+        message: string,
+        obj?: object,
+        trace?: string
+    ): void {
+        trace
+            ? this._logger.log(ERROR, trace)
+            : this._logger.log(level, message, obj);
     }
 }

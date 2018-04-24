@@ -12,5 +12,5 @@ export const auth = {
 
 export const defaultOptions = {
     session: false,
-    property: 'user',
+    property: 'user'
 };

@@ -8,9 +8,7 @@ import { PoliciesController } from './controllers/policies.controller';
 import { PoliciesRemoteService } from './services/policies-remote.service';
 
 @Module({
-    controllers: [
-        PoliciesController
-    ],
+    controllers: [PoliciesController],
     components: [
         PoliciesService,
         PoliciesRemoteService,
@@ -19,12 +17,7 @@ import { PoliciesRemoteService } from './services/policies-remote.service';
             useValue: filter
         }
     ],
-    imports: [
-        HttpModule,
-        ClientsModule
-    ],
-    exports: [
-        PoliciesService
-    ]
+    imports: [HttpModule, ClientsModule],
+    exports: [PoliciesService]
 })
 export class PoliciesModule {}

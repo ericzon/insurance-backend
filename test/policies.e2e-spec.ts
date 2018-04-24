@@ -5,16 +5,14 @@ import { INestApplication } from '@nestjs/common';
 import { TEST_PORT } from './constants';
 import { PoliciesModule } from '../src/app/modules/policies';
 
-describe('Policies Controller (e2e)', async() => {
+describe('Policies Controller (e2e)', async () => {
     const apiPrefix = '/api';
     let app: INestApplication;
     let validToken = '';
 
     beforeAll(async () => {
         const moduleFixture = await Test.createTestingModule({
-            imports: [
-                PoliciesModule
-            ]
+            imports: [PoliciesModule]
         }).compile();
 
         app = moduleFixture.createNestApplication();
@@ -26,8 +24,8 @@ describe('Policies Controller (e2e)', async() => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .post(apiPrefix + '/auth/login')
             .send({
-                "name": "Britney",
-                "password": "a0ece5db-cd14-4f21-812f-966633e7be86"
+                name: 'Britney',
+                password: 'a0ece5db-cd14-4f21-812f-966633e7be86'
             })
             .expect(200);
 
@@ -38,9 +36,12 @@ describe('Policies Controller (e2e)', async() => {
 
     it('/POST /api/policies/:id/user (401)', async () => {
         const response = await request(`http://localhost:${TEST_PORT}`)
-            .get(apiPrefix + '/policies/8b089843-48e0-4c9d-a275-07e925184ab5/user')
+            .get(
+                apiPrefix +
+                    '/policies/8b089843-48e0-4c9d-a275-07e925184ab5/user'
+            )
             .set({
-                "Authorization": "Bearer wrongToken"
+                Authorization: 'Bearer wrongToken'
             })
             .expect(401);
 
@@ -49,16 +50,19 @@ describe('Policies Controller (e2e)', async() => {
 
     it('/POST /api/policies/:id/user (200)', async () => {
         const response = await request(`http://localhost:${TEST_PORT}`)
-            .get(apiPrefix + '/policies/8b089843-48e0-4c9d-a275-07e925184ab5/user')
+            .get(
+                apiPrefix +
+                    '/policies/8b089843-48e0-4c9d-a275-07e925184ab5/user'
+            )
             .set({
-                "Authorization": "Bearer " + validToken
+                Authorization: 'Bearer ' + validToken
             })
             .expect(200)
             .expect({
-                "id": "e8fd159b-57c4-4d36-9bd7-a59ca13057bb",
-                "name": "Manning",
-                "email": "manningblankenship@quotezart.com",
-                "role": "admin"
+                id: 'e8fd159b-57c4-4d36-9bd7-a59ca13057bb',
+                name: 'Manning',
+                email: 'manningblankenship@quotezart.com',
+                role: 'admin'
             });
 
         return response;
@@ -68,7 +72,7 @@ describe('Policies Controller (e2e)', async() => {
         const response = await request(`http://localhost:${TEST_PORT}`)
             .get(apiPrefix + '/policies?name=Manning')
             .set({
-                "Authorization": "Bearer " + validToken
+                Authorization: 'Bearer ' + validToken
             })
             .expect(200);
 

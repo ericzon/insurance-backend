@@ -6,7 +6,7 @@ import { ExecutionContext } from '@nestjs/common/interfaces/execution-context.in
 import { defaultOptions } from '../constants';
 
 const checkRole = (role, roles) => {
-    return role && (roles.indexOf(role) > -1);
+    return role && roles.indexOf(role) > -1;
 };
 
 export const AuthGuard = (type, options: any = defaultOptions) => {
@@ -14,23 +14,30 @@ export const AuthGuard = (type, options: any = defaultOptions) => {
 
     const guard = mixin(
         class implements CanActivate {
-
-            public async canActivate(context: ExecutionContext): Promise<boolean> {
+            public async canActivate(
+                context: ExecutionContext
+            ): Promise<boolean> {
                 const request = context;
                 const response = (context as any).res;
 
-                request[options.property || defaultOptions.property] = await new Promise((resolve, reject) =>
+                request[
+                    options.property || defaultOptions.property
+                ] = await new Promise((resolve, reject) =>
                     passport.authenticate(type, options, (err, user, info) => {
-                        if (err || !user || !checkRole(user.role, options.roles)) {
+                        if (
+                            err ||
+                            !user ||
+                            !checkRole(user.role, options.roles)
+                        ) {
                             return reject(err || new UnauthorizedException());
                         }
 
                         resolve(user);
-                    })(request, response, resolve),
+                    })(request, response, resolve)
                 );
                 return true;
             }
-        },
+        }
     );
 
     return guard;

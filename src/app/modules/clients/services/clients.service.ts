@@ -5,10 +5,7 @@ import { ClientsRemoteService } from './clients-remote.service';
 
 @Component()
 export class ClientsService extends BaseService {
-    constructor(
-        remote: ClientsRemoteService,
-        @Inject('filter') filter
-    ) {
+    constructor(remote: ClientsRemoteService, @Inject('filter') filter) {
         super(remote, filter);
     }
 

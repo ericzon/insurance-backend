@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { TestingModule } from '@nestjs/testing/testing-module';
-import { NestEnvironment } from '@nestjs/common/enums/nest-environment.enum'
+import { NestEnvironment } from '@nestjs/common/enums/nest-environment.enum';
 
 import { filterMock } from './mocks/filter.mock';
 import { ClientsRemoteService, ClientsService } from '../services';
@@ -35,7 +35,7 @@ describe('Clients service', () => {
         spies.service.getSingle.mockRestore();
     });
 
-    it('should exist service when module is created',() => {
+    it('should exist service when module is created', () => {
         expect(injector.service).toBeDefined();
         expect(injector.remote).toBeDefined();
         expect(injector.filter).toBeDefined();
@@ -46,7 +46,7 @@ describe('Clients service', () => {
         spies.service.getClients.mockImplementation(({ id }) => {
             return fakeList;
         });
-        spies.service.getSingle.mockImplementation((list) => (list[0]));
+        spies.service.getSingle.mockImplementation((list) => list[0]);
 
         const result = await injector.service.getClientById('1234');
 
@@ -59,7 +59,7 @@ describe('Clients service', () => {
         spies.remote.getClients.mockImplementation(({ id }) => {
             return fakeList;
         });
-        spies.service.filter.mockImplementation((query, list) => (list[0]));
+        spies.service.filter.mockImplementation((query, list) => list[0]);
 
         const result = await injector.service.getClients(query);
 
@@ -71,7 +71,7 @@ describe('Clients service', () => {
         spies.service.getClients.mockImplementation(({ name }) => {
             return fakeList;
         });
-        spies.service.getSingle.mockImplementation((list) => (list[0]));
+        spies.service.getSingle.mockImplementation((list) => list[0]);
 
         const result = await injector.service.getClientIdFromName('fakeName');
 
@@ -95,7 +95,10 @@ describe('Clients service', () => {
                 getClients: jest.spyOn(injector.service, 'getClients'),
                 getSingle: jest.spyOn(injector.service, 'getSingle'),
                 filter: jest.spyOn(injector.service, 'filter'),
-                getClientIdFromName: jest.spyOn(injector.service, 'getClientIdFromName')
+                getClientIdFromName: jest.spyOn(
+                    injector.service,
+                    'getClientIdFromName'
+                )
             },
             remote: {
                 getClients: jest.spyOn(injector.service, 'getClients')

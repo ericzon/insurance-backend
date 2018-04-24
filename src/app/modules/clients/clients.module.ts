@@ -10,9 +10,7 @@ import { ClientsController } from './controllers/clients.controller';
 import { ClientsRemoteService } from './services/clients-remote.service';
 
 @Module({
-    controllers: [
-        ClientsController
-    ],
+    controllers: [ClientsController],
     components: [
         ClientsRemoteService,
         ClientsService,
@@ -21,11 +19,7 @@ import { ClientsRemoteService } from './services/clients-remote.service';
             useValue: filter
         }
     ],
-    imports: [
-        HttpModule
-    ],
-    exports: [
-        ClientsService
-    ]
+    imports: [HttpModule],
+    exports: [ClientsService]
 })
 export class ClientsModule {}

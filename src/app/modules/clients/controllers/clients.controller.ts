@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Query, Res, UseGuards, UsePipes } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Param,
+    Query,
+    Res,
+    UseGuards,
+    UsePipes
+} from '@nestjs/common';
 
 import { ValidationPipe } from '../../../utils/pipes/validation.pipe';
 import { RESTRICTIVE_OPTS } from '../../../core/constants';
